@@ -14,16 +14,23 @@ function App() {
     lastJsonMessage,
     readyState,
     getWebSocket,
-  } = useWebSocket(`ws://${document.location.hostname}:5000`, {
-    onOpen: () =>
-      console.log(`WebSocket connected to ${document.location.hostname}:5000`),
-    onMessage: (event) => {
-      const data = JSON.parse(event.data);
-      if (data.type === 'newMessage')
-        setMessages((prev) => [...prev, data.message]);
-    },
-    shouldReconnect: (closeEvent) => true,
-  });
+  } = useWebSocket(
+    `ws://${document.location.hostname}:${process.env.PORT || 5000}`,
+    {
+      onOpen: () =>
+        console.log(
+          `WebSocket connected to ${document.location.hostname}:${
+            process.env.PORT || 5000
+          }`
+        ),
+      onMessage: (event) => {
+        const data = JSON.parse(event.data);
+        if (data.type === 'newMessage')
+          setMessages((prev) => [...prev, data.message]);
+      },
+      shouldReconnect: (closeEvent) => true,
+    }
+  );
 
   const sendNewMessage = (message: Message) => {
     sendMessage(JSON.stringify({ type: 'newMessage', message }));
