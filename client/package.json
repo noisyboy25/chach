@@ -10,6 +10,7 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "http-proxy-middleware": "^0.19.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "^3.4.4",
@@ -41,5 +42,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000"
+  "devDependencies": {
+    "@types/http-proxy-middleware": "^1.0.0"
+  }
 }

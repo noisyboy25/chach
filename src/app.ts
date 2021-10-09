@@ -2,7 +2,7 @@ require('dotenv').config();
 
 import express from 'express';
 import { WebSocketServer } from 'ws';
-import { Server, createServer } from 'http';
+import { createServer } from 'http';
 import * as path from 'path';
 
 const PORT = process.env.PORT || 5000;

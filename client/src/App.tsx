@@ -9,6 +9,8 @@ function App() {
 
   const host = window.location.origin.replace(/^http/, 'ws');
 
+  console.log(`Connecting WebSocket to ${host}`);
+
   const {
     sendMessage,
     sendJsonMessage,

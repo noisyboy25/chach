@@ -32,6 +32,7 @@ const MessageInput = ({
         name="text"
         id="text"
         value={text}
+        autoComplete="false"
         onChange={(event) => setText(event.target.value)}
       />
       <button>Send</button>
