@@ -7,7 +7,8 @@ import useWebSocket from 'react-use-websocket';
 function App() {
   const [messages, setMessages] = useState<Message[]>([]);
 
-  const host = location.origin.replace(/^http/, 'ws');
+  const host = window.location.origin.replace(/^http/, 'ws');
+
   const {
     sendMessage,
     sendJsonMessage,
