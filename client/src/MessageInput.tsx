@@ -13,8 +13,9 @@ const MessageInput = ({
       onSubmit={(event) => {
         event.preventDefault();
         sendMessage({
+          id: -1,
           text,
-          author: { id: Math.floor(Math.random() * 10000) + '', name },
+          author: { id: 1, name },
         });
 
         setText('');
