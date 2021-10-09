@@ -15,7 +15,7 @@ function App() {
     readyState,
     getWebSocket,
   } = useWebSocket(
-    `ws://${document.location.hostname}:${process.env.PORT || 5000}`,
+    `wss://${document.location.hostname}:${process.env.PORT || 5000}`,
     {
       onOpen: () =>
         console.log(
