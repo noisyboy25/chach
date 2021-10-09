@@ -7,6 +7,8 @@ import useWebSocket from 'react-use-websocket';
 function App() {
   const [messages, setMessages] = useState<Message[]>([]);
 
+  const host = window.location.origin.replace(/^http/, 'ws');
+
   const {
     sendMessage,
     sendJsonMessage,
@@ -14,23 +16,15 @@ function App() {
     lastJsonMessage,
     readyState,
     getWebSocket,
-  } = useWebSocket(
-    `ws://${document.location.hostname}:${process.env.PORT || 5000}`,
-    {
-      onOpen: () =>
-        console.log(
-          `WebSocket connected to ${document.location.hostname}:${
-            process.env.PORT || 5000
-          }`
-        ),
-      onMessage: (event) => {
-        const data = JSON.parse(event.data);
-        if (data.type === 'newMessage')
-          setMessages((prev) => [...prev, data.message]);
-      },
-      shouldReconnect: (closeEvent) => true,
-    }
-  );
+  } = useWebSocket(host, {
+    onOpen: () => console.log(`WebSocket connected to ${host}`),
+    onMessage: (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === 'newMessage')
+        setMessages((prev) => [...prev, data.message]);
+    },
+    shouldReconnect: (closeEvent) => true,
+  });
 
   const sendNewMessage = (message: Message) => {
     sendMessage(JSON.stringify({ type: 'newMessage', message }));
