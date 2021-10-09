@@ -3,13 +3,13 @@ require('dotenv').config();
 import express from 'express';
 import { WebSocketServer } from 'ws';
 import { createServer } from 'http';
-import * as path from 'path';
+import path from 'path';
 
 const PORT = process.env.PORT || 5000;
 
 const app = express();
 const server = createServer(app);
-const wss = new WebSocketServer({ server });
+const wss = new WebSocketServer({ server, path: '/ws' });
 
 app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
 

@@ -25,6 +25,7 @@ const MessageInput = ({
         name="name"
         id="name"
         value={name}
+        placeholder="name"
         onChange={(event) => setName(event.target.value)}
       />
       <input

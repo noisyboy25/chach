@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Message } from '../../src/common/Message';
 import MessageInput from './MessageInput';
 
