@@ -7,23 +7,21 @@ messageRouter.get('/:id', async (req, res) => {
   const message = await prisma.message.findUnique({
     where: { id: +req.params.id },
   });
-  res.end(
-    JSON.stringify({
-      message,
-    })
-  );
+  res.json({
+    message,
+  });
 });
 
 messageRouter.get('/', async (req, res) => {
-  res.end(JSON.stringify({ messages: await prisma.message.findMany() }));
+  res.json({ messages: await prisma.message.findMany() });
 });
 
 messageRouter.post('/', async (req, res) => {
   try {
     const message = await prisma.message.create({ data: req.body });
-    res.end(JSON.stringify({ message }));
+    res.json({ message });
   } catch (error) {
-    res.end(JSON.stringify(error));
+    res.json(error);
   }
 });
 
@@ -33,9 +31,9 @@ messageRouter.put('/:id', async (req, res) => {
       where: { id: +req.params.id },
       data: req.body,
     });
-    res.end(JSON.stringify({ message }));
+    res.json({ message });
   } catch (error) {
-    res.end(JSON.stringify(error));
+    res.json(error);
   }
 });
 
@@ -44,9 +42,9 @@ messageRouter.delete('/:id', async (req, res) => {
     const message = await prisma.message.delete({
       where: { id: +req.params.id },
     });
-    res.end(JSON.stringify({ message }));
+    res.json({ message });
   } catch (error) {
-    res.end(JSON.stringify(error));
+    res.json(error);
   }
 });
 

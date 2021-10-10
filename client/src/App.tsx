@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Messenger from './Messenger';
 import useWebSocket from 'react-use-websocket';
-import { Message } from '../../src/common/Message';
+import { Message } from '../../src/dao';
 
 function App() {
   const [messages, setMessages] = useState<Message[]>([]);

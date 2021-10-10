@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Message } from '../../src/common/Message';
+import { Message } from '../../src/dao';
 
 const MessageInput = ({
   sendMessage,
@@ -7,15 +7,14 @@ const MessageInput = ({
   sendMessage: (message: Message) => void;
 }) => {
   const [text, setText] = useState('');
-  const [name, setName] = useState('');
+  const [login, setName] = useState('');
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
         sendMessage({
-          id: -1,
           text,
-          author: { id: 1, name },
+          author: { login },
         });
 
         setText('');
@@ -25,7 +24,7 @@ const MessageInput = ({
         type="text"
         name="name"
         id="name"
-        value={name}
+        value={login}
         placeholder="name"
         onChange={(event) => setName(event.target.value)}
       />

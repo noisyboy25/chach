@@ -8,9 +8,10 @@ generator client {
 }
 
 model User {
-  id      Int       @id @default(autoincrement())
-  name    String
-  Message Message[]
+  id       Int       @id @default(autoincrement())
+  login    String    @unique
+  password String
+  Messages Message[]
 }
 
 model Message {
