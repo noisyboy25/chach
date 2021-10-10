@@ -33,18 +33,22 @@ wss.on('connection', (ws, req) => {
 
     if (data.type === 'newMessage') {
       const message = data.message;
+
+      wss.clients.forEach((client) => {
+        client.send(JSON.stringify({ type: 'newMessage', message }));
+      });
+
       const user = await prisma.user.findUnique({
-        where: { id: message.author.id },
+        where: { login: message.author.login },
       });
 
       if (!user) return;
 
-      prisma.message.create({
-        data: { author: { connect: user }, text: message.text },
-      });
-
-      wss.clients.forEach((client) => {
-        client.send(JSON.stringify({ type: 'newMessage', message }));
+      await prisma.message.create({
+        data: {
+          author: { connect: { login: user.login } },
+          text: message.text,
+        },
       });
     }
   });
