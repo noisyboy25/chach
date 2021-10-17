@@ -3,6 +3,7 @@ import './App.css';
 import Messenger from './Messenger';
 import useWebSocket from 'react-use-websocket';
 import { Message } from '../../src/dao';
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
 function App() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -48,8 +49,24 @@ function App() {
   return (
     <div className="App">
       <h1>Chat App</h1>
-      <div>{connected ? 'Ready!' : 'Connecting...'}</div>
-      <Messenger messages={messages} sendMessage={sendNewMessage} />
+      <BrowserRouter>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/messenger">Messenger</Link>
+            </li>
+          </ul>
+        </nav>
+        <Switch>
+          <Route path="/messenger">
+            <div>{connected ? 'Ready!' : 'Connecting...'}</div>
+            <Messenger messages={messages} sendMessage={sendNewMessage} />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
