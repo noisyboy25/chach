@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Messenger from './Messenger';
 import useWebSocket from 'react-use-websocket';
@@ -32,6 +32,14 @@ function App() {
       return true;
     },
   });
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch('/api/message');
+      const data = await res.json();
+      setMessages(data.messages);
+    })();
+  }, []);
 
   const sendNewMessage = (message: Message) => {
     sendMessage(JSON.stringify({ type: 'newMessage', message }));

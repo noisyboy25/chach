@@ -34,10 +34,6 @@ wss.on('connection', (ws, req) => {
     if (data.type === 'newMessage') {
       const message = data.message;
 
-      wss.clients.forEach((client) => {
-        client.send(JSON.stringify({ type: 'newMessage', message }));
-      });
-
       const user = await prisma.user.findUnique({
         where: { login: message.author.login },
       });
@@ -49,6 +45,10 @@ wss.on('connection', (ws, req) => {
           author: { connect: { login: user.login } },
           text: message.text,
         },
+      });
+
+      wss.clients.forEach((client) => {
+        client.send(JSON.stringify({ type: 'newMessage', message }));
       });
     }
   });
