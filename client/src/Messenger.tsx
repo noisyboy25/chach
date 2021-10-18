@@ -13,7 +13,7 @@ const Messenger = ({
     <div>
       <MessageInput sendMessage={sendMessage} />
       {[...messages].reverse().map((m: Message, i: number) => (
-        <div key={i}>
+        <div key={m.id}>
           [{m.author && m.author.login}] {m.text}
         </div>
       ))}

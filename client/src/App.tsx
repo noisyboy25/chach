@@ -4,10 +4,13 @@ import Messenger from './Messenger';
 import useWebSocket from 'react-use-websocket';
 import { Message } from '../../src/dao';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+import RegisterForm from './RegisterForm';
+import LoginForm from './LoginForm';
 
 function App() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [connected, setConnected] = useState(false);
+  const [auth, setAuth] = useState('');
 
   const host = window.location.origin.replace(/^http/, 'ws') + '/ws';
 
@@ -58,12 +61,24 @@ function App() {
             <li>
               <Link to="/messenger">Messenger</Link>
             </li>
+            <li>
+              <Link to="/register">Register</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
           </ul>
         </nav>
         <Switch>
           <Route path="/messenger">
             <div>{connected ? 'Ready!' : 'Connecting...'}</div>
             <Messenger messages={messages} sendMessage={sendNewMessage} />
+          </Route>
+          <Route path="/register">
+            <RegisterForm />
+          </Route>
+          <Route path="/login">
+            <LoginForm setAuth={setAuth} />
           </Route>
         </Switch>
       </BrowserRouter>
