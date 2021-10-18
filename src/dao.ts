@@ -8,8 +8,8 @@ export interface User {
 }
 
 export interface Message {
-  id?: number;
-  authorId?: number;
-  author?: User;
+  id: number;
+  authorId: number;
+  author: User;
   text: string;
 }

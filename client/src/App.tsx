@@ -45,8 +45,8 @@ function App() {
     })();
   }, []);
 
-  const sendNewMessage = (message: Message) => {
-    sendMessage(JSON.stringify({ type: 'newMessage', message }));
+  const sendNewMessage = (message: any) => {
+    sendMessage(JSON.stringify({ type: 'newMessage', message, auth }));
   };
 
   return (

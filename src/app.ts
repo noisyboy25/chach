@@ -7,6 +7,7 @@ import path from 'path';
 import { PrismaClient } from '@prisma/client';
 import authRouter from './auth';
 import messageRouter from './message';
+import argon2 from 'argon2';
 
 const PORT = process.env.PORT || 5000;
 
@@ -33,22 +34,31 @@ wss.on('connection', (ws, req) => {
 
     if (data.type === 'newMessage') {
       const message = data.message;
+      const authSplit = data.auth.split(' ');
+      const auth = { login: authSplit[0], password: authSplit[1] };
 
       const user = await prisma.user.findUnique({
-        where: { login: message.author.login },
+        where: { login: auth.login },
       });
 
       if (!user) return;
 
-      await prisma.message.create({
+      if (!(await argon2.verify(user.password, auth.password))) return;
+
+      console.log(auth);
+
+      const createdMessage = await prisma.message.create({
         data: {
-          author: { connect: { login: user.login } },
+          author: { connect: { login: auth.login } },
           text: message.text,
         },
+        include: { author: true },
       });
 
       wss.clients.forEach((client) => {
-        client.send(JSON.stringify({ type: 'newMessage', message }));
+        client.send(
+          JSON.stringify({ type: 'newMessage', message: createdMessage })
+        );
       });
     }
   });
