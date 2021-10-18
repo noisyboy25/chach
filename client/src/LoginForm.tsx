@@ -7,6 +7,7 @@ const LoginForm = ({
 }) => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [status, setStatus] = useState('');
 
   const handleLogin = async (event: React.MouseEvent) => {
     event.preventDefault();
@@ -18,11 +19,13 @@ const LoginForm = ({
     });
 
     if (!res.ok) return;
+
     setLogin('');
     setPassword('');
     setAuth(`${login} ${password}`);
     const data = await res.json();
     console.log(data);
+    if (data.message) setStatus(data.message);
   };
 
   return (
@@ -42,6 +45,7 @@ const LoginForm = ({
         onChange={(event) => setPassword(event.target.value)}
       />
       <button onClick={(event) => handleLogin(event)}>Login</button>
+      <p>{status}</p>
     </form>
   );
 };

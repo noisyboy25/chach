@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 const RegisterForm = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [status, setStatus] = useState('');
 
   const handleRegister = async (event: React.MouseEvent) => {
     event.preventDefault();
@@ -14,10 +15,12 @@ const RegisterForm = () => {
     });
 
     if (!res.ok) return;
+
     setLogin('');
     setPassword('');
     const data = await res.json();
     console.log(data);
+    if (data.message) setStatus(data.message);
   };
 
   return (
@@ -37,6 +40,7 @@ const RegisterForm = () => {
         onChange={(event) => setPassword(event.target.value)}
       />
       <button onClick={(event) => handleRegister(event)}>Register</button>
+      <p>{status}</p>
     </form>
   );
 };
