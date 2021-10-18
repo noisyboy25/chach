@@ -41,7 +41,7 @@ const LoginForm = ({
         value={password}
         onChange={(event) => setPassword(event.target.value)}
       />
-      <button onClick={(event) => handleLogin(event)}>Register</button>
+      <button onClick={(event) => handleLogin(event)}>Login</button>
     </form>
   );
 };
