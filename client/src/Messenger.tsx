@@ -3,15 +3,17 @@ import { Message } from '../../src/dao';
 import MessageInput from './MessageInput';
 
 const Messenger = ({
+  auth,
   messages,
   sendMessage,
 }: {
+  auth: string;
   messages: Message[];
   sendMessage: (message: any) => void;
 }) => {
   return (
     <div>
-      <MessageInput sendMessage={sendMessage} />
+      {auth && <MessageInput sendMessage={sendMessage} />}
       {[...messages].reverse().map((m: Message) => (
         <div key={m.id}>
           [{m.author && m.author.login}] {m.text}
