@@ -3,7 +3,7 @@ import './App.css';
 import Messenger from './Messenger';
 import useWebSocket from 'react-use-websocket';
 import { Message } from '../../src/dao';
-import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Link, Redirect, Route, Switch } from 'react-router-dom';
 import RegisterForm from './RegisterForm';
 import LoginForm from './LoginForm';
 
@@ -79,6 +79,7 @@ function App() {
           </Route>
           <Route path="/login">
             <LoginForm setAuth={setAuth} />
+            {auth && <Redirect to="/messenger" />}
           </Route>
         </Switch>
       </BrowserRouter>
