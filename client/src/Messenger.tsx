@@ -1,5 +1,5 @@
 import React from 'react';
-import { Message } from '../../src/common/Message';
+import { Message } from '../../src/dao';
 import MessageInput from './MessageInput';
 
 const Messenger = ({
@@ -7,14 +7,14 @@ const Messenger = ({
   sendMessage,
 }: {
   messages: Message[];
-  sendMessage: (message: Message) => void;
+  sendMessage: (message: any) => void;
 }) => {
   return (
     <div>
       <MessageInput sendMessage={sendMessage} />
-      {[...messages].reverse().map((m: Message, i: number) => (
-        <div key={i}>
-          [{m.author && m.author.name}] {m.text}
+      {[...messages].reverse().map((m: Message) => (
+        <div key={m.id}>
+          [{m.author && m.author.login}] {m.text}
         </div>
       ))}
     </div>
