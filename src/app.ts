@@ -23,6 +23,10 @@ app.use(express.json());
 app.use('/api/auth', authRouter);
 app.use('/api/message', messageRouter);
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
+});
+
 wss.on('connection', (ws, req) => {
   console.log(
     `WS client connected to ${req.socket.remoteAddress}:${req.socket.remotePort}`
