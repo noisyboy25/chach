@@ -1,7 +1,7 @@
 import argon2 from 'argon2';
 import { Router } from 'express';
 import { prisma } from './app';
-import { LoginForm } from './dao';
+import { LoginForm } from './interfaces';
 
 const authRouter = Router();
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Message } from '../../src/dao';
+import { Auth, Message } from '../../src/interfaces';
 import MessageInput from './MessageInput';
 
 const Messenger = ({
@@ -7,7 +7,7 @@ const Messenger = ({
   messages,
   sendMessage,
 }: {
-  auth: string;
+  auth?: Auth;
   messages: Message[];
   sendMessage: (message: any) => void;
 }) => {

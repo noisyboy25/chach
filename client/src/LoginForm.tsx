@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { Auth } from '../../src/interfaces';
 
 const LoginForm = ({
   setAuth,
 }: {
-  setAuth: React.Dispatch<React.SetStateAction<string>>;
+  setAuth: React.Dispatch<React.SetStateAction<Auth | undefined>>;
 }) => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +23,7 @@ const LoginForm = ({
 
     setLogin('');
     setPassword('');
-    setAuth(`${login} ${password}`);
+    setAuth({ username: login, password });
     const data = await res.json();
     console.log(data);
     if (data.message) setStatus(data.message);

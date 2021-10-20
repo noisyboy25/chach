@@ -13,3 +13,8 @@ export interface Message {
   author: User;
   text: string;
 }
+
+export interface Auth {
+  username: string;
+  password: string;
+}
