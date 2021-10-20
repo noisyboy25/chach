@@ -55,11 +55,11 @@ function App() {
       <BrowserRouter>
         <nav>
           <ul>
-            <li>
-              <Link to="/messenger">Messenger</Link>
-            </li>
             {!auth && (
               <>
+                <li>
+                  <Link to="/messenger">Messenger</Link>
+                </li>
                 <li>
                   <Link to="/register">Register</Link>
                 </li>
